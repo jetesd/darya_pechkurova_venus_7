@@ -1,0 +1,14 @@
+SELECT COUNT(*) AS delivery_count, c.login
+FROM public."Orders" AS o
+JOIN public."Couriers" AS c ON o."courierId" = c.id
+WHERE o."inDelivery" = TRUE 
+GROUP BY c.login;
+
+SELECT track, 
+       CASE
+           WHEN finished = true THEN 2
+           WHEN cancelled = true THEN -1
+           WHEN "inDelivery" = true THEN 1
+           ELSE 0
+       END AS status
+FROM public."Orders";
